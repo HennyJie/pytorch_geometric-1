@@ -125,9 +125,7 @@ class GNNExplainer(torch.nn.Module):
 
     def __loss__(self, node_idx, log_logits, pred_label):
         # node_idx is -1 for explaining graphs
-        loss = -log_logits[
-            node_idx, pred_label[node_idx]] if node_idx == -1 else -log_logits[
-                0, pred_label[0]]
+        loss = -log_logits[0, pred_label[0]] if node_idx == -1 else -log_logits[node_idx, pred_label[node_idx]]
 
         m = self.edge_mask.sigmoid()
         edge_reduce = getattr(torch, self.coeffs['edge_reduction'])
